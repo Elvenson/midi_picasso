@@ -1,2 +1,4 @@
-./test.png
-./test.py
+test.png
+test.py
+.idea/*
+style/*
