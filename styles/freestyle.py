@@ -105,6 +105,11 @@ class FreeStyle(BaseStyle):
             self._clip_image(output_file)
 
     def _clip_image(self, input_file):
+        """
+        Clip image according to shape.
+        :param input_file: A string contains input file path.
+        :return:
+        """
         surface = cairo.ImageSurface(  # pylint: disable=no-member
             cairo.FORMAT_ARGB32, self.config.width, self.config.height)  # pylint: disable=no-member
         ctx = cairo.Context(surface)  # pylint: disable=no-member
