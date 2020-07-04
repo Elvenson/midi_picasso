@@ -19,7 +19,7 @@ from styles.freestyle import FreeStyle
 
 class GeneralParams(collections.namedtuple(
         'GeneralParams', ['use_drum', 'sustain', 'max_length',
-                          'width', 'height', 'scale'])):
+                          'width', 'height', 'scale', 'shape'])):
     """General params for all styles."""
 
     def values(self):
@@ -56,6 +56,7 @@ CONFIG_MAP['freestyle'] = Config(
         width=1024,
         height=1024,
         scale=80,
+        shape='circle'
     )),
     style_params={
         'background_color': [1.0, 1.0, 1.0],

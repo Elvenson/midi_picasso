@@ -16,7 +16,7 @@
 import random
 import math
 import cairo
-from styles.base import BaseStyle    # pylint: disable=import-error
+from styles.base import BaseStyle  # pylint: disable=import-error
 
 
 class FreeStyle(BaseStyle):
@@ -25,6 +25,7 @@ class FreeStyle(BaseStyle):
     the size of the shape is determined by its note duration, the transparency
     is determined by note velocity.
     """
+
     def encode_midi(self, input_file, output_file, params):
         """Encodes midi into image."""
         note_sequence = self._read_midi(input_file)
@@ -78,7 +79,6 @@ class FreeStyle(BaseStyle):
         :return:
         """
         # Add background color.
-        self._ctx.rectangle(0, 0, self.config.width, self.config.height)
         self._ctx.set_source_rgb(*params['background_color'])
         self._ctx.fill()
         for note in note_sequence.notes:
@@ -100,14 +100,34 @@ class FreeStyle(BaseStyle):
         # Write image to file.
         self._surface.write_to_png(output_file)
 
+        # Clip image by reading the output image and clip
+        if self.config.shape != 'rectangle':
+            self._clip_image(output_file)
+
+    def _clip_image(self, input_file):
+        surface = cairo.ImageSurface(  # pylint: disable=no-member
+            cairo.FORMAT_ARGB32, self.config.width, self.config.height)  # pylint: disable=no-member
+        ctx = cairo.Context(surface)  # pylint: disable=no-member
+        image = cairo.ImageSurface.create_from_png(input_file)  # pylint: disable=no-member
+        ctx.set_source_surface(image, 0, 0)
+        if self.config.shape == 'circle':
+            ctx.arc(self.config.width / 2, self.config.height / 2,
+                    self.config.height / 2, 0, 2 * math.pi)
+        else:
+            raise ValueError('Cannot recognize background shape {}'.format(self.config.shape))
+        ctx.clip()
+        ctx.paint()
+        surface.write_to_png(input_file)
+
     def __str__(self):
         return 'FreeStyle class with config {}'.format(self.config)
 
     def __init__(self, config=None):
         super().__init__(config)
-        self._surface = cairo.ImageSurface(     # pylint: disable=no-member
-            cairo.FORMAT_ARGB32, config.width, config.height)    # pylint: disable=no-member
-        self._ctx = cairo.Context(self._surface)    # pylint: disable=no-member
+        self._surface = cairo.ImageSurface(  # pylint: disable=no-member
+            cairo.FORMAT_ARGB32, self.config.width, self.config.height)  # pylint: disable=no-member
+        self._ctx = cairo.Context(self._surface)  # pylint: disable=no-member
+        self._ctx.rectangle(0, 0, self.config.width, self.config.height)
 
         # Set scale.
         if config.scale and config.scale <= 0:
