@@ -11,7 +11,7 @@ visualization). This repo requires `Python 3` version.
 
 To install `magenta`, simply type:
 ```bash
-pip install magenta ==1.3.1
+pip install magenta==1.3.1
 ```
 
 To install `pycairo`, type:
