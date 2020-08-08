@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Midi Picasso script"""
+"""Midi Picasso script."""
 
 import logging
 import argparse
@@ -25,7 +25,7 @@ LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
 def parse_arg():
     """
     Parses parameters for execution.
-    :return:
+    :return: ParsedArgument object contains script parameters.
     """
     parser = argparse.ArgumentParser()
 
@@ -37,7 +37,7 @@ def parse_arg():
             'ERROR',
             'FATAL',
             'INFO',
-            'WARN'
+            'WARN',
         ],
         default='INFO',
         help='Set logging verbosity',

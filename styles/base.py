@@ -72,11 +72,11 @@ class BaseStyle(object):    # pylint: disable=useless-object-inheritance
 
     def __init__(self, config=None):
         """
-        Initializer base class
+        Initializer base class.
         :param config: A GeneralParams object contains parameters.
         """
         if not config:
-            raise ValueError('Required config')
+            raise ValueError('Required config.')
 
         self._config = config
 
