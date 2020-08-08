@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Midi Picasso configs"""
+"""Midi Picasso configs."""
 import collections
 from styles.freestyle import FreeStyle
 

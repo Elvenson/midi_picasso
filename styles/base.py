@@ -76,7 +76,7 @@ class BaseStyle(object):    # pylint: disable=useless-object-inheritance
         :param config: A GeneralParams object contains parameters.
         """
         if not config:
-            raise ValueError('Required config')
+            raise ValueError('Required config.')
 
         self._config = config
 
